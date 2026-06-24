@@ -1,0 +1,30 @@
+import java.io.*;
+import java.util.*;
+public class cse221lab {
+    public static void main(String[] args) {
+        Scanner sc244 = new Scanner(System.in);
+        int titAn = sc244.nextInt();
+        for (int iS = 0; iS < titAn; iS++) {
+            int nte = sc244.nextInt();
+            int[] aRg = new int[nte];
+            for (int i = 0; i < nte; i++) {
+                aRg[i] = sc244.nextInt();
+            }
+            boolean sort =false;
+            for (int i = 0; i < nte - 1; i++) {
+                if (aRg[i] > aRg[i + 1]) {
+                    sort = true;
+                    break;
+                }
+            }
+            if
+            (!sort) {
+                System.out.println("YES");
+            }
+            else {
+                System.out.println("NO");
+            }
+        }
+        sc244.close();
+    }
+}
