@@ -1,0 +1,15 @@
+int funcB (int n) {
+int m = 0;
+for (int k = 1; k <= n; k += 2) {
+for (int j = n; j >= 1; j--) {
+for (int i = 1; i <= n; i += 2) {
+if (i%2 != 0) {
+break;
+} else {
+m = k - j + i;
+}
+}
+}
+}
+return m;
+}
