@@ -1,0 +1,113 @@
+import java.io.*;
+import java.util.StringTokenizer;
+public class cse221lab {
+    static class FastReader {
+        BufferedReader brUt;
+        StringTokenizer stU;
+        FastReader() {
+            brUt= new BufferedReader(new InputStreamReader(System.in));
+        }
+        String next() throws IOException {
+            while (stU==null||!stU.hasMoreElements()) {
+                String line = brUt.readLine();
+                if (line == null) return null;
+                stU = new StringTokenizer(line);
+            }
+            return stU.nextToken();
+        }
+        int nextInt()throws IOException {
+            return Integer.parseInt(next());
+        }
+    }
+    static class FastWriter {
+        BufferedWriter bw;
+        FastWriter(){
+            bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        }
+        void println(String s)throws IOException {
+            bw.write(s);
+            bw.newLine();
+        }
+        void print(String s)throws IOException {
+            bw.write(s);
+        }
+        void close() throws IOException {
+            bw.flush();
+            bw.close();
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        FastReader sc=new FastReader();
+        FastWriter out=new FastWriter();
+        int nIro=sc.nextInt();
+        int[] aRre=new int[nIro];
+        for (int i=0;i<nIro; i++)aRre[i]=sc.nextInt();
+        int invrS =0;
+        for (int i = 0; i < nIro; i++) {
+            for (int j = i+1; j < nIro; j++) {
+                if (aRre[i] > aRre[j]) invrS++;
+            }
+        }
+        if (invrS%2==1) {
+            out.println("NO");
+            out.close();
+            return;
+        }
+        int[] sorT=aRre.clone();
+        for (int i = 0; i<nIro;i++) {
+            int minId=i;
+            for (int j=i+1;j<nIro;j++) {
+                if (sorT[j]<sorT[minId]) {
+                    minId =j;
+                }
+            }
+            int tmp=sorT[i];
+            sorT[i]=sorT[minId];
+            sorT[minId]=tmp;
+        }
+        int[][] movE =new int[nIro*nIro][2];
+        int moveCou =0;
+        for (int i = 0; i < nIro; i++) {
+            int target = sorT[i];
+            int pos=-1;
+            for (int j = i; j < nIro; j++) {
+                if (aRre[j] == target) {
+                    pos = j;
+                    break;
+                }
+            }
+            while (pos>i){
+                if (pos-2>=i) {
+                    reverseTriple(aRre,pos-2);
+                    movE[moveCou][0] = pos-1;
+                    movE[moveCou][1] = pos+1;
+                    moveCou++;
+                    pos -= 2;
+                } else {
+                    reverseTriple(aRre, pos-1);
+                    movE[moveCou][0] =pos;
+                    movE[moveCou][1]=pos+2;
+                    moveCou++;
+                    pos -= 1;
+                }
+            }
+        }
+        out.println("YES");
+        out.println(String.valueOf(moveCou));
+        for (int i=0;i<moveCou;i++) {
+            out.println(movE[i][0] + " " + movE[i][1]);
+        }
+        out.close();
+    }
+    static void reverseTriple(int[] ArR, int lEr) {
+        int r = lEr +2;
+        while (lEr <r) {
+            int tmp=ArR[lEr];
+            ArR[lEr] = ArR[r];
+            ArR[r]=tmp;
+            lEr++;
+            r--;
+        }
+    }
+}
