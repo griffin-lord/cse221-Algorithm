@@ -1,0 +1,48 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bRe2 = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bRw2 = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder mVEs = new StringBuilder();
+        int mVeCou = 0;
+        String nLine = bRe2.readLine();
+        if (nLine == null) return;
+        int nIo = Integer.parseInt(nLine.trim());
+        String[] pRts = bRe2.readLine().trim().split(" ");
+        int[] aRt = new int[nIo];
+        for (int iP = 0; iP < nIo; iP++) {
+            aRt[iP] = Integer.parseInt(pRts[iP]);
+        }
+        boolean swP = true;
+        while (swP) {
+            swP = false;
+            for (int i = 0; i < nIo - 2; i++) {
+                if (aRt[i] > aRt[i + 2]) {
+                    int temp = aRt[i];
+                    aRt[i] = aRt[i + 2];
+                    aRt[i + 2] = temp;
+                    mVEs.append((i + 1) + " " + (i + 3) + "\n");
+                    mVeCou++;
+                    swP = true;
+                }
+            }
+        }
+        boolean isSorted = true;
+        for (int i = 0; i < nIo - 1; i++) {
+            if (aRt[i] > aRt[i + 1]) {
+                isSorted = false;
+                break;
+            }
+        }
+        if (isSorted) {
+            bRw2.write("YES\n");
+            bRw2.write(mVeCou + "\n");
+            bRw2.write(mVEs.toString());
+        } else {
+            bRw2.write("NO\n");
+        }
+        bRw2.flush();
+    }
+}
